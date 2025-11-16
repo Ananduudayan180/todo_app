@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:todo_app/extensions/space_exs.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/utils/app_str.dart';
+import 'package:todo_app/utils/constants.dart';
 import 'package:todo_app/views/home/components/fab.dart';
 import 'package:todo_app/views/home/widget/task_widget.dart';
 
@@ -13,7 +15,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<int> testing = [1, 2, 1, 1];
+  final List<int> testing = [];
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -99,7 +101,7 @@ class _HomeViewState extends State<HomeView> {
                           );
                         },
                       )
-                    : Column(children: [Text('Image animation')]),
+                    : Column(children: [Lottie.asset(lottieURL)]),
               ),
             ),
           ],
