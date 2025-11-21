@@ -13,7 +13,9 @@ class TaskViewAppBar extends StatelessWidget implements PreferredSizeWidget {
           Padding(
             padding: const EdgeInsets.only(top: 20, left: 20),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pop();
+              },
               child: Icon(Icons.arrow_back_ios_new_rounded),
             ),
           ),
