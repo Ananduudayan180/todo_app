@@ -1,1 +1,1 @@
-const String lottieURL = 'assets/lottie/task.json';
+const String lottieURL = 'assets/lottie/Task.json';
