@@ -36,12 +36,15 @@ class _TaskViewState extends State<TaskView> {
               children: [
                 //Call Top side texts
                 _buildTopSideTexts(textTheme),
+
                 //Call Main task view activity
                 _buildMainTaskViewActivity(textTheme, context),
+
                 //delete button
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20, top: 20),
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       //Delete current task button
                       MaterialButton(
@@ -68,9 +71,8 @@ class _TaskViewState extends State<TaskView> {
                           ],
                         ),
                       ),
-
                       //Add or update task button
-                       MaterialButton(
+                      MaterialButton(
                         onPressed: () {
                           //add or update task
                         },
@@ -80,10 +82,10 @@ class _TaskViewState extends State<TaskView> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        child:const Text(
-                              AppStr.addTaskString,
-                              style: TextStyle(color: Colors.white),
-                            ),
+                        child: const Text(
+                          AppStr.addTaskString,
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ],
                   ),
@@ -95,87 +97,90 @@ class _TaskViewState extends State<TaskView> {
       ),
     );
   }
+
   //Main task view activity widget
   Widget _buildMainTaskViewActivity(TextTheme textTheme, BuildContext context) {
     return SizedBox(
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //Title of TextFiled
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: Text(
-                        AppStr.title0fTitleTextField,
-                        style: textTheme.bodyLarge,
-                      ),
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //Title of TextFiled
+          Padding(
+            padding: const EdgeInsets.only(left: 30),
+            child: Text(
+              AppStr.title0fTitleTextField,
+              style: textTheme.bodyLarge,
+            ),
+          ),
+          //Title TextFiled
+          RepTextField(controller: titleTaskController),
+          10.h,
+          //Description TextFiled
+          RepTextField(
+            controller: descriptionTaskController,
+            isForDescription: true,
+          ),
+          //Time picker container
+          DateTimeSelectionWidget(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (ctx) {
+                  return SizedBox(
+                    height: 254,
+                    child: TimePickerWidget(
+                      onChange: (dateTime, selectedIndex) {},
+                      dateFormat: 'HH:mm',
+                      onConfirm: (dateTime, selectedIndex) {},
                     ),
-                    //Title TextFiled
-                    RepTextField(controller: titleTaskController),
-                    10.h,
-                    //Description TextFiled
-                    RepTextField(
-                      controller: descriptionTaskController,
-                      isForDescription: true,
-                    ),
-                    //Time picker container
-                    DateTimeSelectionWidget(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (ctx) {
-                            return SizedBox(
-                              height: 254,
-                              child: TimePickerWidget(
-                                onChange: (dateTime, selectedIndex) {},
-                                dateFormat: 'HH:mm',
-                                onConfirm: (dateTime, selectedIndex) {},
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      title: AppStr.timeString,
-                    ),
-                    //Date picker container
-                    DateTimeSelectionWidget(
-                      onTap: () {
-                        DatePicker.showDatePicker(
-                          context,
-                          maxDateTime: DateTime(2030, 4, 5),
-                          minDateTime: DateTime.now(),
-                          onConfirm: (dateTime, selectedIndex) {},
-                        );
-                      },
-                      title: AppStr.dateString,
-                    ),
-                  ],
-                ),
+                  );
+                },
               );
+            },
+            title: AppStr.timeString,
+          ),
+          //Date picker container
+          DateTimeSelectionWidget(
+            onTap: () {
+              DatePicker.showDatePicker(
+                context,
+                maxDateTime: DateTime(2030, 4, 5),
+                minDateTime: DateTime.now(),
+                onConfirm: (dateTime, selectedIndex) {},
+              );
+            },
+            title: AppStr.dateString,
+          ),
+        ],
+      ),
+    );
   }
+
   //Top side texts widget
   SizedBox _buildTopSideTexts(TextTheme textTheme) {
     return SizedBox(
-            width: double.infinity,
-            height: 100,
-            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      width: double.infinity,
+      height: 100,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(width: 100, child: Divider(thickness: 2)),
+          RichText(
+            text: TextSpan(
+              text: AppStr.addNewTask,
+              style: textTheme.titleLarge,
               children: [
-                SizedBox(width: 100, child: Divider(thickness: 2)),
-                RichText(
-                  text: TextSpan(
-                    text: AppStr.addNewTask,
-                    style: textTheme.titleLarge,
-                    children: [
-                      TextSpan(
-                        text: AppStr.taskStrnig,
-                        style: TextStyle(fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
+                TextSpan(
+                  text: AppStr.taskStrnig,
+                  style: TextStyle(fontWeight: FontWeight.w400),
                 ),
-                SizedBox(width: 100, child: Divider(thickness: 2)),
               ],
             ),
-          );
+          ),
+          SizedBox(width: 100, child: Divider(thickness: 2)),
+        ],
+      ),
+    );
   }
 }
