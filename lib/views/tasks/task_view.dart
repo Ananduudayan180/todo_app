@@ -75,6 +75,18 @@ class _TaskViewState extends State<TaskView> {
                         },
                         title: AppStr.timeString,
                       ),
+                      //Date picker container
+                      DateTimeSelectionWidget(
+                        onTap: () {
+                          DatePicker.showDatePicker(
+                            context,
+                            maxDateTime: DateTime(2030, 4, 5),
+                            minDateTime: DateTime.now(),
+                            onConfirm: (dateTime, selectedIndex) {},
+                          );
+                        },
+                        title: AppStr.dateString,
+                      ),
                     ],
                   ),
                 ),
