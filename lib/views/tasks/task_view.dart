@@ -32,64 +32,10 @@ class _TaskViewState extends State<TaskView> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                //Top side texts
+                //Call Top side texts
                 _buildTopSideTexts(textTheme),
-
-                SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //Title of TextFiled
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Text(
-                          AppStr.title0fTitleTextField,
-                          style: textTheme.bodyLarge,
-                        ),
-                      ),
-                      //Title TextFiled
-                      RepTextField(controller: titleTaskController),
-                      10.h,
-                      //Description TextFiled
-                      RepTextField(
-                        controller: descriptionTaskController,
-                        isForDescription: true,
-                      ),
-                      //Time picker container
-                      DateTimeSelectionWidget(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (ctx) {
-                              return SizedBox(
-                                height: 254,
-                                child: TimePickerWidget(
-                                  onChange: (dateTime, selectedIndex) {},
-                                  dateFormat: 'HH:mm',
-                                  onConfirm: (dateTime, selectedIndex) {},
-                                ),
-                              );
-                            },
-                          );
-                        },
-                        title: AppStr.timeString,
-                      ),
-                      //Date picker container
-                      DateTimeSelectionWidget(
-                        onTap: () {
-                          DatePicker.showDatePicker(
-                            context,
-                            maxDateTime: DateTime(2030, 4, 5),
-                            minDateTime: DateTime.now(),
-                            onConfirm: (dateTime, selectedIndex) {},
-                          );
-                        },
-                        title: AppStr.dateString,
-                      ),
-                    ],
-                  ),
-                ),
+                //Call Main task view activity
+                _buildMainTaskViewActivity(textTheme, context),
               ],
             ),
           ),
@@ -97,7 +43,65 @@ class _TaskViewState extends State<TaskView> {
       ),
     );
   }
-
+  //Main task view activity widget
+  Widget _buildMainTaskViewActivity(TextTheme textTheme, BuildContext context) {
+    return SizedBox(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //Title of TextFiled
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30),
+                      child: Text(
+                        AppStr.title0fTitleTextField,
+                        style: textTheme.bodyLarge,
+                      ),
+                    ),
+                    //Title TextFiled
+                    RepTextField(controller: titleTaskController),
+                    10.h,
+                    //Description TextFiled
+                    RepTextField(
+                      controller: descriptionTaskController,
+                      isForDescription: true,
+                    ),
+                    //Time picker container
+                    DateTimeSelectionWidget(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (ctx) {
+                            return SizedBox(
+                              height: 254,
+                              child: TimePickerWidget(
+                                onChange: (dateTime, selectedIndex) {},
+                                dateFormat: 'HH:mm',
+                                onConfirm: (dateTime, selectedIndex) {},
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      title: AppStr.timeString,
+                    ),
+                    //Date picker container
+                    DateTimeSelectionWidget(
+                      onTap: () {
+                        DatePicker.showDatePicker(
+                          context,
+                          maxDateTime: DateTime(2030, 4, 5),
+                          minDateTime: DateTime.now(),
+                          onConfirm: (dateTime, selectedIndex) {},
+                        );
+                      },
+                      title: AppStr.dateString,
+                    ),
+                  ],
+                ),
+              );
+  }
+  //Top side texts widget
   SizedBox _buildTopSideTexts(TextTheme textTheme) {
     return SizedBox(
             width: double.infinity,
@@ -141,7 +145,7 @@ class DateTimeSelectionWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.all(20),
+        margin: const EdgeInsets.fromLTRB(20,20,20,0),
         width: double.infinity,
         height: 55,
         decoration: BoxDecoration(
