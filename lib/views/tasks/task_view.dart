@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_date_picker_fork/flutter_cupertino_date_picker_fork.dart';
 import 'package:todo_app/extensions/space_exs.dart';
+import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/utils/app_str.dart';
 import 'package:todo_app/views/tasks/components/date_time_selection.dart';
 import 'package:todo_app/views/tasks/components/rep_textfield.dart';
@@ -37,6 +38,56 @@ class _TaskViewState extends State<TaskView> {
                 _buildTopSideTexts(textTheme),
                 //Call Main task view activity
                 _buildMainTaskViewActivity(textTheme, context),
+                //delete button
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20, top: 20),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      //Delete current task button
+                      MaterialButton(
+                        onPressed: () {
+                          //Delete task
+                        },
+                        minWidth: 150,
+                        height: 55,
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.close,
+                              color: AppColors.primaryColor,
+                            ),
+                            5.w,
+                            const Text(
+                              AppStr.deleteTask,
+                              style: TextStyle(color: AppColors.primaryColor),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      //Add or update task button
+                       MaterialButton(
+                        onPressed: () {
+                          //add or update task
+                        },
+                        minWidth: 150,
+                        height: 55,
+                        color: AppColors.primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child:const Text(
+                              AppStr.addTaskString,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
