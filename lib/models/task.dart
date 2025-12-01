@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:uuid/uuid.dart';
 
 @HiveType(typeId: 0)
 class Task extends HiveObject {
@@ -28,4 +29,20 @@ class Task extends HiveObject {
     required this.createAtDate,
     required this.isCompleted,
   });
+
+  factory Task.create({
+    required String? title,
+    required String? subtitle,
+    DateTime? createAtTime,
+    DateTime? createAtDate,
+  }) {
+    return Task(
+      id: const Uuid().v4(),
+      title: title ?? "",
+      subtitle: subtitle ?? "",
+      createAtTime: createAtTime ?? DateTime.now(),
+      createAtDate: createAtTime ?? DateTime.now(),
+      isCompleted: false,
+    );
+  }
 }
