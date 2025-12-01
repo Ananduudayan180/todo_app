@@ -111,7 +111,7 @@ class _TaskViewState extends State<TaskView> {
           Padding(
             padding: const EdgeInsets.only(left: 30),
             child: Text(
-              AppStr.title0fTitleTextField,
+              AppStr.titleOfTitleTextField,
               style: textTheme.bodyLarge,
             ),
           ),
@@ -174,7 +174,7 @@ class _TaskViewState extends State<TaskView> {
               style: textTheme.titleLarge,
               children: [
                 TextSpan(
-                  text: AppStr.taskStrnig,
+                  text: AppStr.taskString,
                   style: TextStyle(fontWeight: FontWeight.w400),
                 ),
               ],
