@@ -3,11 +3,16 @@ import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:intl/intl.dart';
 
-class TaskWidget extends StatelessWidget {
+class TaskWidget extends StatefulWidget {
   const TaskWidget({super.key, required this.task});
 
   final Task task;
 
+  @override
+  State<TaskWidget> createState() => _TaskWidgetState();
+}
+
+class _TaskWidgetState extends State<TaskWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -19,7 +24,7 @@ class TaskWidget extends StatelessWidget {
         duration: Duration(seconds: 600),
         margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: task.isCompleted
+          color: widget.task.isCompleted
               ? AppColors.primaryColor.withValues(alpha: 0.1)
               : Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -40,7 +45,9 @@ class TaskWidget extends StatelessWidget {
             child: AnimatedContainer(
               duration: Duration(microseconds: 600),
               decoration: BoxDecoration(
-                color: task.isCompleted ? AppColors.primaryColor : Colors.white,
+                color: widget.task.isCompleted
+                    ? AppColors.primaryColor
+                    : Colors.white,
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.grey, width: 1),
               ),
@@ -49,11 +56,13 @@ class TaskWidget extends StatelessWidget {
           ),
           //task title
           title: Text(
-            task.title,
+            widget.task.title,
             style: TextStyle(
-              color: task.isCompleted ? AppColors.primaryColor : Colors.black,
+              color: widget.task.isCompleted
+                  ? AppColors.primaryColor
+                  : Colors.black,
               fontWeight: FontWeight.w500,
-              decoration: task.isCompleted
+              decoration: widget.task.isCompleted
                   ? TextDecoration.lineThrough
                   : TextDecoration.none,
             ),
@@ -63,13 +72,13 @@ class TaskWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                task.subtitle,
+                widget.task.subtitle,
                 style: TextStyle(
-                  color: task.isCompleted
+                  color: widget.task.isCompleted
                       ? AppColors.primaryColor
                       : Colors.black,
                   fontWeight: FontWeight.w300,
-                  decoration: task.isCompleted
+                  decoration: widget.task.isCompleted
                       ? TextDecoration.lineThrough
                       : TextDecoration.none,
                 ),
@@ -85,17 +94,21 @@ class TaskWidget extends StatelessWidget {
                       //time
                       Text(
                         TimeOfDay.fromDateTime(
-                          task.createAtTime,
+                          widget.task.createAtTime,
                         ).format(context),
                         style: TextStyle(
-                          color: task.isCompleted ? Colors.white : Colors.grey,
+                          color: widget.task.isCompleted
+                              ? Colors.white
+                              : Colors.grey,
                         ),
                       ),
                       //date
                       Text(
-                        DateFormat.yMMMd().format(task.createAtDate),
+                        DateFormat.yMMMd().format(widget.task.createAtDate),
                         style: TextStyle(
-                          color: task.isCompleted ? Colors.white : Colors.grey,
+                          color: widget.task.isCompleted
+                              ? Colors.white
+                              : Colors.grey,
                         ),
                       ),
                     ],
