@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/utils/app_colors.dart';
+import 'package:todo_app/models/task.dart';
+import 'package:intl/intl.dart';
 
 class TaskWidget extends StatelessWidget {
-  const TaskWidget({super.key});
+  const TaskWidget({super.key, required this.task});
+
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
@@ -10,11 +14,14 @@ class TaskWidget extends StatelessWidget {
       onTap: () {
         //navigate to task details
       },
+      //task container
       child: AnimatedContainer(
         duration: Duration(seconds: 600),
         margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: AppColors.primaryColor.withValues(alpha: 0.1),
+          color: task.isCompleted
+              ? AppColors.primaryColor.withValues(alpha: 0.1)
+              : Colors.white,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
@@ -25,6 +32,7 @@ class TaskWidget extends StatelessWidget {
           ],
         ),
         child: ListTile(
+          //check icon
           leading: GestureDetector(
             onTap: () {
               //check icon onTap
@@ -32,29 +40,41 @@ class TaskWidget extends StatelessWidget {
             child: AnimatedContainer(
               duration: Duration(microseconds: 600),
               decoration: BoxDecoration(
-                color: AppColors.primaryColor,
+                color: task.isCompleted ? AppColors.primaryColor : Colors.white,
                 shape: BoxShape.circle,
-                // border: Border.all(color: Colors.grey, width: 1),
+                border: Border.all(color: Colors.grey, width: 1),
               ),
               child: Icon(Icons.check, color: Colors.white),
             ),
           ),
-          //task tile
+          //task title
           title: Text(
-            'Done',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+            task.title,
+            style: TextStyle(
+              color: task.isCompleted ? AppColors.primaryColor : Colors.black,
+              fontWeight: FontWeight.w500,
+              decoration: task.isCompleted
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none,
+            ),
           ),
           //task subtitle
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Description',
+                task.subtitle,
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: task.isCompleted
+                      ? AppColors.primaryColor
+                      : Colors.black,
                   fontWeight: FontWeight.w300,
+                  decoration: task.isCompleted
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
                 ),
               ),
+              //time and date
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
@@ -62,13 +82,21 @@ class TaskWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      //time
                       Text(
-                        'Date',
-                        style: TextStyle(color: Colors.grey, fontSize: 14),
+                        TimeOfDay.fromDateTime(
+                          task.createAtTime,
+                        ).format(context),
+                        style: TextStyle(
+                          color: task.isCompleted ? Colors.white : Colors.grey,
+                        ),
                       ),
+                      //date
                       Text(
-                        'SubDate',
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                        DateFormat.yMMMd().format(task.createAtDate),
+                        style: TextStyle(
+                          color: task.isCompleted ? Colors.white : Colors.grey,
+                        ),
                       ),
                     ],
                   ),
