@@ -3,9 +3,9 @@ import 'package:flutter_cupertino_date_picker_fork/flutter_cupertino_date_picker
 import 'package:todo_app/extensions/space_exs.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/utils/app_str.dart';
-import 'package:todo_app/views/tasks/components/date_time_selection.dart';
-import 'package:todo_app/views/tasks/components/rep_textfield.dart';
-import 'package:todo_app/views/tasks/widget/task_view_app_bar.dart';
+import 'package:todo_app/views/home/components/date_time_selection.dart';
+import 'package:todo_app/views/home/components/rep_textfield.dart';
+import 'package:todo_app/views/tasks/task_view_app_bar.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView({super.key});

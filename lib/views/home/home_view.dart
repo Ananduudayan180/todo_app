@@ -7,9 +7,9 @@ import 'package:todo_app/extensions/space_exs.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/utils/app_str.dart';
 import 'package:todo_app/utils/constants.dart';
-import 'package:todo_app/views/tasks/components/fab.dart';
-import 'package:todo_app/views/tasks/components/slider_drawer.dart';
-import 'package:todo_app/views/tasks/widget/task_widget.dart';
+import 'package:todo_app/views/home/components/fab.dart';
+import 'package:todo_app/views/home/components/slider_drawer.dart';
+import 'package:todo_app/views/home/widget/task_widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -53,7 +53,7 @@ class _HomeViewState extends State<HomeView> {
                   padding: const EdgeInsets.only(top: 30),
                   child: IconButton(
                     onPressed: () {},
-                    icon: Icon(CupertinoIcons.trash_circle, size: 40),
+                    icon: Icon(CupertinoIcons.delete,size: 28,),
                   ),
                 ),
                 5.w,
