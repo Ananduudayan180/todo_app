@@ -8,16 +8,37 @@ import 'package:todo_app/views/home/components/rep_textfield.dart';
 import 'package:todo_app/views/tasks/task_view_app_bar.dart';
 
 class TaskView extends StatefulWidget {
-  const TaskView({super.key});
+  const TaskView({
+    super.key,
+    required this.titleTaskController,
+    required this.descriptionTaskController,
+    required this.task,
+  });
 
+  final TextEditingController? titleTaskController;
+  final TextEditingController? descriptionTaskController;
+  final Task? task;
   @override
   State<TaskView> createState() => _TaskViewState();
 }
 
 class _TaskViewState extends State<TaskView> {
-  final TextEditingController titleTaskController = TextEditingController();
-  final TextEditingController descriptionTaskController =
-      TextEditingController();
+ 
+  DateTime? time;
+  DateTime? date;
+
+  String showTime(DateTime? time) {
+    if (widget.task?.createAtTime == null) {
+      if (time == null) {
+        return DateFormat('h:mm a').format(DateTime.now()).toString();
+      } else {
+        return DateFormat('h:mm a').format(time).toString();
+      }
+    } else {
+      return DateFormat('h:mm a').format(widget.task!.createAtTime).toString();
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -134,13 +155,22 @@ class _TaskViewState extends State<TaskView> {
                     child: TimePickerWidget(
                       onChange: (dateTime, selectedIndex) {},
                       dateFormat: 'HH:mm',
-                      onConfirm: (dateTime, selectedIndex) {},
+                      onConfirm: (confirmTime, selectedIndex) {
+                        setState(() {
+                          if (widget.task?.createAtTime == null) {
+                            time = confirmTime;
+                          } else {
+                            widget.task!.createAtTime = confirmTime;
+                          }
+                        });
+                      },
                     ),
                   );
                 },
               );
             },
             title: AppStr.timeString,
+            dateOrTime: showTime(time),
           ),
           //Date picker container
           DateTimeSelectionWidget(

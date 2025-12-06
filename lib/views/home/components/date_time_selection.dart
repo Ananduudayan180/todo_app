@@ -5,10 +5,12 @@ class DateTimeSelectionWidget extends StatelessWidget {
     super.key,
     required this.onTap,
     required this.title,
+    required this.dateOrTime,
   });
 
   final VoidCallback onTap;
   final String title;
+  final String dateOrTime;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,9 @@ class DateTimeSelectionWidget extends StatelessWidget {
                 color: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(child: Text(title, style: textTheme.titleSmall)),
+              child: Center(
+                child: Text(dateOrTime, style: textTheme.titleSmall),
+              ),
             ),
           ],
         ),
