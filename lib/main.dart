@@ -7,8 +7,28 @@ import 'package:todo_app/views/home/home_view.dart';
 Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter<Task>(TaskAdapter());
-  final box = await Hive.openBox<Task>(HiveDataStore.taskBoxName);
-  runApp(MyApp());
+  await Hive.openBox<Task>(HiveDataStore.taskBoxName);
+  runApp(BaseWidget(child: MyApp()));
+}
+
+class BaseWidget extends InheritedWidget {
+  BaseWidget({Key? key, required this.child}) : super(key: key, child: child);
+  final HiveDataStore dataStore = HiveDataStore();
+  final Widget child;
+
+  static BaseWidget of(BuildContext context) {
+    final base = context.dependOnInheritedWidgetOfExactType<BaseWidget>();
+    if (base != null) {
+      return base;
+    } else {
+      throw StateError('Could not find ancestor widget of type Basewidget');
+    }
+  }
+
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+    return false;
+  }
 }
 
 class MyApp extends StatelessWidget {
