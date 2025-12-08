@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_date_picker_fork/flutter_cupertino_date_picker_fork.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/extensions/space_exs.dart';
+import 'package:todo_app/models/task.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/utils/app_str.dart';
 import 'package:todo_app/views/home/components/date_time_selection.dart';
@@ -26,6 +28,18 @@ class _TaskViewState extends State<TaskView> {
  
   DateTime? time;
   DateTime? date;
+
+  String showDate(DateTime? date) {
+    if (widget.task?.createAtDate == null) {
+      if (date == null) {
+        return DateFormat('MMM-dd-yy').format(DateTime.now());
+      } else {
+        return DateFormat('MMM-dd-yy').format(date);
+      }
+    } else {
+      return DateFormat('MMM-dd-yy').format(widget.task!.createAtDate);
+    }
+  }
 
   String showTime(DateTime? time) {
     if (widget.task?.createAtTime == null) {
@@ -179,10 +193,19 @@ class _TaskViewState extends State<TaskView> {
                 context,
                 maxDateTime: DateTime(2030, 4, 5),
                 minDateTime: DateTime.now(),
-                onConfirm: (dateTime, selectedIndex) {},
+                onConfirm: (confirmDate, selectedIndex) {
+                  setState(() {
+                    if (widget.task?.createAtDate == null) {
+                      date = confirmDate;
+                    } else {
+                      widget.task!.createAtDate = confirmDate;
+                    }
+                  });
+                },
               );
             },
             title: AppStr.dateString,
+            dateOrTime: showDate(date),
           ),
         ],
       ),
