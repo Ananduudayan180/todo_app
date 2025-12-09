@@ -29,6 +29,22 @@ class _TaskViewState extends State<TaskView> {
   DateTime? time;
   DateTime? date;
 
+  DateTime getInitialDateTime(DateTime? dateTime, bool isTimePicker) {
+    if (isTimePicker
+        ? widget.task?.createAtTime == null
+        : widget.task?.createAtDate == null) {
+      if (dateTime == null) {
+        return DateTime.now();
+      } else {
+        return dateTime;
+      }
+    } else {
+      return isTimePicker
+          ? widget.task!.createAtTime
+          : widget.task!.createAtDate;
+    }
+  }
+
   String showDate(DateTime? date) {
     if (widget.task?.createAtDate == null) {
       if (date == null) {
@@ -167,6 +183,7 @@ class _TaskViewState extends State<TaskView> {
                   return SizedBox(
                     height: 254,
                     child: TimePickerWidget(
+                      initDateTime: getInitialDateTime(time, true),
                       onChange: (dateTime, selectedIndex) {},
                       dateFormat: 'HH:mm',
                       onConfirm: (confirmTime, selectedIndex) {
@@ -191,6 +208,7 @@ class _TaskViewState extends State<TaskView> {
             onTap: () {
               DatePicker.showDatePicker(
                 context,
+                initialDateTime: getInitialDateTime(date, false),
                 maxDateTime: DateTime(2030, 4, 5),
                 minDateTime: DateTime.now(),
                 onConfirm: (confirmDate, selectedIndex) {
