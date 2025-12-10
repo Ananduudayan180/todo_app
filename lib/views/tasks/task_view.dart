@@ -25,7 +25,8 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
- 
+  String? title;
+  String? subTitle;
   DateTime? time;
   DateTime? date;
 
@@ -178,12 +179,26 @@ class _TaskViewState extends State<TaskView> {
             ),
           ),
           //Title TextFiled
-          RepTextField(controller: titleTaskController),
-          10.h,
-          //Description TextFiled
           RepTextField(
-            controller: descriptionTaskController,
+            controller: widget.titleTaskController,
+            onFieldSubmitted: (String inputTitle) {
+              title = inputTitle;
+            },
+            onChanged: (String inputTitle) {
+              title = inputTitle;
+            },
+          ),
+          10.h,
+          //SubTitle TextFiled
+          RepTextField(
+            controller: widget.descriptionTaskController,
             isForDescription: true,
+            onFieldSubmitted: (String inputDescription) {
+              subTitle = inputDescription;
+            },
+            onChanged: (String inputDescription) {
+              subTitle = inputDescription;
+            },
           ),
           //Time picker container
           DateTimeSelectionWidget(
