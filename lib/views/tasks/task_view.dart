@@ -69,6 +69,17 @@ class _TaskViewState extends State<TaskView> {
     }
   }
 
+  //if any task already exist return true otherwise false
+  bool isTaskAlreadyExist() {
+    if (widget.titleTaskController?.text == null &&
+        widget.descriptionTaskController?.text == null) {
+      return true; //add new task
+    } else {
+      return false; //update task
+    }
+  }
+
+  dynamic getOrCreateTask() {}
 
   @override
   Widget build(BuildContext context) {
@@ -241,7 +252,9 @@ class _TaskViewState extends State<TaskView> {
           SizedBox(width: 100, child: Divider(thickness: 2)),
           RichText(
             text: TextSpan(
-              text: AppStr.addNewTask,
+              text: isTaskAlreadyExist()
+                  ? AppStr.addNewTask
+                  : AppStr.updateCurrentTask,
               style: textTheme.titleLarge,
               children: [
                 TextSpan(
