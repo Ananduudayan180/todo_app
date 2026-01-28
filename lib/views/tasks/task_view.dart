@@ -146,30 +146,37 @@ class _TaskViewState extends State<TaskView> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20, top: 20),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: isTaskAlreadyExist()
+            //only add task button
+            ? MainAxisAlignment.center
+            //delete + update task buttons shown
+            : MainAxisAlignment.spaceEvenly,
         children: [
-          //Delete current task button
-          MaterialButton(
-            onPressed: () {
-              //Delete task
-            },
-            minWidth: 150,
-            height: 55,
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Row(
-              children: [
-                const Icon(Icons.close, color: AppColors.primaryColor),
-                5.w,
-                const Text(
-                  AppStr.deleteTask,
-                  style: TextStyle(color: AppColors.primaryColor),
+          isTaskAlreadyExist()
+              ? SizedBox()
+              :
+                //Delete current task button
+                MaterialButton(
+                  onPressed: () {
+                    //Delete task
+                  },
+                  minWidth: 150,
+                  height: 55,
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.close, color: AppColors.primaryColor),
+                      5.w,
+                      const Text(
+                        AppStr.deleteTask,
+                        style: TextStyle(color: AppColors.primaryColor),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
           //Add or update task button
           MaterialButton(
             onPressed: () {
@@ -181,8 +188,10 @@ class _TaskViewState extends State<TaskView> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            child: const Text(
-              AppStr.addTaskString,
+            child: Text(
+              isTaskAlreadyExist()
+                  ? AppStr.addTaskString
+                  : AppStr.updateTaskString,
               style: TextStyle(color: Colors.white),
             ),
           ),
