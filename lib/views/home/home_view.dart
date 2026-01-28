@@ -120,6 +120,8 @@ class _HomeViewState extends State<HomeView> {
                         //task list tile
                         return Dismissible(
                           direction: DismissDirection.endToStart,
+                          onDismissed: (direction) =>
+                              base.dataStore.deleteTask(task: task),
                           background: Container(
                             color: Colors.amber,
                             alignment: Alignment.center,
@@ -135,7 +137,7 @@ class _HomeViewState extends State<HomeView> {
                               ],
                             ),
                           ),
-                          key: UniqueKey(),
+                          key: Key(task.id),
                           child: TaskWidget(task: task),
                         );
                       },
