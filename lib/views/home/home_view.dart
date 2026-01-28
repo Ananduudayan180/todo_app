@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo_app/extensions/space_exs.dart';
+import 'package:todo_app/main.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/utils/app_str.dart';
 import 'package:todo_app/utils/constants.dart';
 import 'package:todo_app/views/home/components/fab.dart';
 import 'package:todo_app/views/home/components/slider_drawer.dart';
 import 'package:todo_app/views/home/widget/task_widget.dart';
+import 'package:todo_app/models/task.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -19,26 +21,36 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<int> testing = [];
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    return Scaffold(
-      backgroundColor: Colors.white,
+    final base = BaseWidget.of(context);
+    return ValueListenableBuilder(
+      valueListenable: base.dataStore.listenToTask(),
+      builder: (context, task, _) {
+        var taskList = task.values.toList();
+        return Scaffold(
+          backgroundColor: Colors.white,
 
-      floatingActionButton: const Fab(),
+          floatingActionButton: Fab(),
 
-      body: SliderDrawer(
-        //custom drawer
-        slider: CustomDrawer(),
-        appBar: SizedBox(),
-        child: _buildHomeBody(textTheme),
-      ),
+          body: SliderDrawer(
+            //custom drawer
+            slider: CustomDrawer(),
+            appBar: SizedBox(),
+            child: _buildHomeBody(textTheme, base, taskList),
+          ),
+        );
+      },
     );
   }
 
   //body function
-  Widget _buildHomeBody(TextTheme textTheme) {
+  Widget _buildHomeBody(
+    TextTheme textTheme,
+    BaseWidget base,
+    List<Task> tasks,
+  ) {
     return SizedBox(
       width: double.infinity,
       height: double.infinity,
@@ -53,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
                   padding: const EdgeInsets.only(top: 30),
                   child: IconButton(
                     onPressed: () {},
-                    icon: Icon(CupertinoIcons.delete,size: 28,),
+                    icon: Icon(CupertinoIcons.delete, size: 28),
                   ),
                 ),
                 5.w,
@@ -99,11 +111,12 @@ class _HomeViewState extends State<HomeView> {
           Expanded(
             child: SizedBox(
               width: double.infinity,
-              child: testing.isNotEmpty
+              child: tasks.isNotEmpty
                   //task is not empty
                   ? ListView.builder(
-                      itemCount: testing.length,
+                      itemCount: tasks.length,
                       itemBuilder: (context, index) {
+                        final task = tasks[index];
                         //task list tile
                         return Dismissible(
                           direction: DismissDirection.endToStart,
@@ -123,7 +136,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                           key: UniqueKey(),
-                          child: TaskWidget(),
+                          child: TaskWidget(task: task),
                         );
                       },
                     )
