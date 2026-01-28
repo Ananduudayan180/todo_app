@@ -29,6 +29,10 @@ class _HomeViewState extends State<HomeView> {
       valueListenable: base.dataStore.listenToTask(),
       builder: (context, task, _) {
         var taskList = task.values.toList();
+        //sorting
+        taskList.sort((a, b) {
+          return b.createAtDate.compareTo(a.createAtDate);
+        });
         return Scaffold(
           backgroundColor: Colors.white,
 
