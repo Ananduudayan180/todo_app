@@ -40,7 +40,7 @@ class _TaskWidgetState extends State<TaskWidget> {
       },
       //task container
       child: AnimatedContainer(
-        duration: Duration(seconds: 600),
+        duration: Duration(microseconds: 600),
         margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: widget.task.isCompleted
@@ -60,6 +60,8 @@ class _TaskWidgetState extends State<TaskWidget> {
           leading: GestureDetector(
             onTap: () {
               //check icon onTap
+              widget.task.isCompleted = !widget.task.isCompleted;
+              widget.task.save();
             },
             child: AnimatedContainer(
               duration: Duration(microseconds: 600),
