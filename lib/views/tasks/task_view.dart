@@ -110,6 +110,11 @@ class _TaskViewState extends State<TaskView> {
     }
   }
 
+  //delete task
+  dynamic deleteTask() {
+    return widget.task?.delete();
+  }
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -159,6 +164,8 @@ class _TaskViewState extends State<TaskView> {
                 MaterialButton(
                   onPressed: () {
                     //Delete task
+                    deleteTask();
+                    Navigator.of(context).pop();
                   },
                   minWidth: 150,
                   height: 55,
