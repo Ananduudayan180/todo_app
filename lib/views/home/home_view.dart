@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo_app/extensions/space_exs.dart';
 import 'package:todo_app/main.dart';
@@ -42,6 +43,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    final boxBase = BaseWidget.of(context).dataStore.box;
     final base = BaseWidget.of(context);
     return ValueListenableBuilder(
       valueListenable: base.dataStore.listenToTask(),
@@ -60,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
             //custom drawer
             slider: CustomDrawer(),
             appBar: SizedBox(),
-            child: _buildHomeBody(textTheme, base, taskList),
+            child: _buildHomeBody(textTheme, base, boxBase, taskList),
           ),
         );
       },
@@ -71,6 +73,7 @@ class _HomeViewState extends State<HomeView> {
   Widget _buildHomeBody(
     TextTheme textTheme,
     BaseWidget base,
+    Box<Task> baseBox,
     List<Task> tasks,
   ) {
     return SizedBox(
@@ -86,7 +89,11 @@ class _HomeViewState extends State<HomeView> {
                 Padding(
                   padding: const EdgeInsets.only(top: 30),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      baseBox.isEmpty
+                          ? noTaskWarning(context)
+                          : deleteAllTasks(context);
+                    },
                     icon: Icon(CupertinoIcons.delete, size: 28),
                   ),
                 ),
