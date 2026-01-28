@@ -25,7 +25,6 @@ class RepTextField extends StatelessWidget {
         title: TextFormField(
           controller: controller,
           maxLines: !isForDescription ? 5 : null,
-          cursorHeight: !isForDescription ? 50 : null,
           style: TextStyle(color: Colors.black),
           decoration: InputDecoration(
             border: isForDescription ? InputBorder.none : null,

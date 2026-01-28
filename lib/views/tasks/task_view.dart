@@ -306,17 +306,17 @@ class _TaskViewState extends State<TaskView> {
   SizedBox _buildTopSideTexts(TextTheme textTheme) {
     return SizedBox(
       width: double.infinity,
-      height: 100,
+      height: 50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 100, child: Divider(thickness: 2)),
+          SizedBox(width: 75, child: Divider(thickness: 1)),
           RichText(
             text: TextSpan(
               text: isTaskAlreadyExist()
                   ? AppStr.addNewTask
                   : AppStr.updateCurrentTask,
-              style: textTheme.titleLarge,
+              style: textTheme.headlineMedium,
               children: [
                 TextSpan(
                   text: AppStr.taskString,
@@ -325,7 +325,7 @@ class _TaskViewState extends State<TaskView> {
               ],
             ),
           ),
-          SizedBox(width: 100, child: Divider(thickness: 2)),
+          SizedBox(width: 75, child: Divider(thickness: 1)),
         ],
       ),
     );
