@@ -12,7 +12,11 @@ class Fab extends StatelessWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (ctx) {
-              return TaskView();
+              return TaskView(
+                titleTaskController: null,
+                descriptionTaskController: null,
+                task: null,
+              );
             },
           ),
         );
