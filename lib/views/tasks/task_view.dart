@@ -84,8 +84,8 @@ class _TaskViewState extends State<TaskView> {
 
   //create task otherwise update task
   void addOrUpdateTask() {
-    if (widget.titleTaskController?.text == null &&
-        widget.descriptionTaskController?.text == null) {
+    if (widget.titleTaskController?.text != null &&
+        widget.descriptionTaskController?.text != null) {
       //Update Task
       try {
         widget.titleTaskController!.text = title!;
