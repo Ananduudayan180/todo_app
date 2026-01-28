@@ -52,6 +52,7 @@ Future<PanaraInfoDialog?> deleteAllTasks(BuildContext context) {
     panaraDialogType: PanaraDialogType.error,
     onTapConfirm: () {
       Navigator.of(context).pop();
+      BaseWidget.of(context).dataStore.box.clear();
     },
     onTapCancel: () {
       Navigator.of(context).pop();
