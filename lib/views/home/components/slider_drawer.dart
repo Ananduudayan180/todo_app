@@ -17,7 +17,6 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme;
     return Container(
       padding: EdgeInsets.symmetric(vertical: 90),
       decoration: BoxDecoration(
@@ -28,16 +27,9 @@ class CustomDrawer extends StatelessWidget {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundImage: NetworkImage(
-              'https://img.freepik.com/premium-vector/flat-vector-illustration-computer-systems-analyst-character_1033579-93466.jpg?w=2000',
-            ),
-          ),
           8.h,
-          Text("Anandu Udayan", style: textTheme.displayMedium),
-          Text("flutter dev", style: textTheme.displaySmall),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
             // color: Colors.amber,
@@ -47,9 +39,7 @@ class CustomDrawer extends StatelessWidget {
               itemCount: icons.length,
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {
-                    print("${texts[index]} Tapped");
-                  },
+                  onTap: () {},
                   child: Container(
                     margin: EdgeInsets.all(3),
                     child: ListTile(
