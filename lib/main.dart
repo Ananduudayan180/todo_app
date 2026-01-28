@@ -8,7 +8,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter<Task>(TaskAdapter());
   await Hive.openBox<Task>(HiveDataStore.taskBoxName);
-  runApp(BaseWidget(child: MyApp()));
+  runApp(BaseWidget(child: const MyApp()));
 }
 
 class BaseWidget extends InheritedWidget {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Hive Todo App',
       theme: ThemeData(
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           displayLarge: TextStyle(
             color: Colors.black,
             fontSize: 45,
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: HomeView(),
+      home: const HomeView(),
     );
   }
 }

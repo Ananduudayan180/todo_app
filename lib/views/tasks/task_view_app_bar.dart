@@ -16,7 +16,7 @@ class TaskViewAppBar extends StatelessWidget implements PreferredSizeWidget {
               onTap: () {
                 Navigator.of(context).pop();
               },
-              child: Icon(Icons.arrow_back_ios_new_rounded),
+              child: const Icon(Icons.arrow_back_ios_new_rounded),
             ),
           ),
         ],
@@ -25,5 +25,5 @@ class TaskViewAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(150);
+  Size get preferredSize => const Size.fromHeight(150);
 }

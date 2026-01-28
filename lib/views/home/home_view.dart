@@ -56,12 +56,12 @@ class _HomeViewState extends State<HomeView> {
         return Scaffold(
           backgroundColor: Colors.white,
 
-          floatingActionButton: Fab(),
+          floatingActionButton: const Fab(),
 
           body: SliderDrawer(
             //custom drawer
             slider: CustomDrawer(),
-            appBar: SizedBox(),
+            appBar: const SizedBox(),
             child: _buildHomeBody(textTheme, base, boxBase, taskList),
           ),
         );
@@ -94,7 +94,7 @@ class _HomeViewState extends State<HomeView> {
                           ? noTaskWarning(context)
                           : deleteAllTasks(context);
                     },
-                    icon: Icon(CupertinoIcons.delete, size: 28),
+                    icon: const Icon(CupertinoIcons.delete, size: 28),
                   ),
                 ),
                 5.w,
@@ -137,9 +137,9 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           //Divider
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: const Divider(thickness: 2, indent: 100),
+          const Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Divider(thickness: 2, indent: 100),
           ),
           //Tasks
           Expanded(
@@ -161,9 +161,9 @@ class _HomeViewState extends State<HomeView> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.delete_outline, color: Colors.grey),
+                                const Icon(Icons.delete_outline, color: Colors.grey),
                                 10.w,
-                                Text(
+                                const Text(
                                   AppStr.deleteTask,
                                   style: TextStyle(color: Colors.grey),
                                 ),

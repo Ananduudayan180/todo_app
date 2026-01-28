@@ -52,8 +52,8 @@ class _TaskWidgetState extends State<TaskWidget> {
       },
       //task container
       child: AnimatedContainer(
-        duration: Duration(microseconds: 600),
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        duration: const Duration(microseconds: 600),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: widget.task.isCompleted
               ? AppColors.primaryColor.withValues(alpha: 0.1)
@@ -76,7 +76,7 @@ class _TaskWidgetState extends State<TaskWidget> {
               widget.task.save();
             },
             child: AnimatedContainer(
-              duration: Duration(microseconds: 600),
+              duration: const Duration(microseconds: 600),
               decoration: BoxDecoration(
                 color: widget.task.isCompleted
                     ? AppColors.primaryColor
@@ -84,7 +84,7 @@ class _TaskWidgetState extends State<TaskWidget> {
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.grey, width: 1),
               ),
-              child: Icon(Icons.check, color: Colors.white),
+              child: const Icon(Icons.check, color: Colors.white),
             ),
           ),
           //task title

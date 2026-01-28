@@ -25,13 +25,13 @@ class RepTextField extends StatelessWidget {
         title: TextFormField(
           controller: controller,
           maxLines: !isForDescription ? 5 : null,
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
           decoration: InputDecoration(
             border: isForDescription ? InputBorder.none : null,
             counter: Container(),
             hintText: isForDescription ? AppStr.addNote : null,
             prefixIcon: isForDescription
-                ? Icon(Icons.bookmark_border, color: Colors.grey)
+                ? const Icon(Icons.bookmark_border, color: Colors.grey)
                 : null,
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.grey.shade300),

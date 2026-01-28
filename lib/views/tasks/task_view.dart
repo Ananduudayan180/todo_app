@@ -124,7 +124,7 @@ class _TaskViewState extends State<TaskView> {
       onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
       child: Scaffold(
         //AppBar
-        appBar: TaskViewAppBar(),
+        appBar: const TaskViewAppBar(),
         //Body
         body: SizedBox(
           height: double.infinity,
@@ -160,7 +160,7 @@ class _TaskViewState extends State<TaskView> {
             : MainAxisAlignment.spaceEvenly,
         children: [
           isTaskAlreadyExist()
-              ? SizedBox()
+              ? const SizedBox()
               :
                 //Delete current task button
                 MaterialButton(
@@ -201,7 +201,7 @@ class _TaskViewState extends State<TaskView> {
               isTaskAlreadyExist()
                   ? AppStr.addTaskString
                   : AppStr.updateTaskString,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ],
@@ -310,14 +310,14 @@ class _TaskViewState extends State<TaskView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 75, child: Divider(thickness: 1)),
+          const SizedBox(width: 75, child: Divider(thickness: 1)),
           RichText(
             text: TextSpan(
               text: isTaskAlreadyExist()
                   ? AppStr.addNewTask
                   : AppStr.updateCurrentTask,
               style: textTheme.headlineMedium,
-              children: [
+              children: const [
                 TextSpan(
                   text: AppStr.taskString,
                   style: TextStyle(fontWeight: FontWeight.w400),
@@ -325,7 +325,7 @@ class _TaskViewState extends State<TaskView> {
               ],
             ),
           ),
-          SizedBox(width: 75, child: Divider(thickness: 1)),
+          const SizedBox(width: 75, child: Divider(thickness: 1)),
         ],
       ),
     );

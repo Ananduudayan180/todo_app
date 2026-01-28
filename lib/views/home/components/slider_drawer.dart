@@ -18,8 +18,8 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 90),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(vertical: 90),
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: AppColors.primaryGradientColor,
           begin: Alignment.topLeft,
@@ -41,12 +41,12 @@ class CustomDrawer extends StatelessWidget {
                 return InkWell(
                   onTap: () {},
                   child: Container(
-                    margin: EdgeInsets.all(3),
+                    margin: const EdgeInsets.all(3),
                     child: ListTile(
                       leading: Icon(icons[index], color: Colors.white),
                       title: Text(
                         texts[index],
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
