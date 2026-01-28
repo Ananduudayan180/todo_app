@@ -91,6 +91,7 @@ class _TaskViewState extends State<TaskView> {
         widget.titleTaskController!.text = title!;
         widget.descriptionTaskController!.text = subTitle!;
         widget.task?.save();
+        Navigator.of(context).pop();
       } catch (e) {
         updateTaskWarning(context);
       }
@@ -104,6 +105,7 @@ class _TaskViewState extends State<TaskView> {
           createAtTime: time,
         );
         BaseWidget.of(context).dataStore.addTask(task: task);
+        Navigator.of(context).pop();
       } else {
         emptyTaskWarning(context);
       }
