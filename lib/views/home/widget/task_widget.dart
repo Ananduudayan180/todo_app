@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_app/views/tasks/task_view.dart';
 
 class TaskWidget extends StatefulWidget {
   const TaskWidget({super.key, required this.task});
@@ -37,6 +38,17 @@ class _TaskWidgetState extends State<TaskWidget> {
     return GestureDetector(
       onTap: () {
         //navigate to task details
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (ctx) {
+              return TaskView(
+                titleTaskController: textEditingControllerForTitle,
+                descriptionTaskController: textEditingControllerForSubTitle,
+                task: widget.task,
+              );
+            },
+          ),
+        );
       },
       //task container
       child: AnimatedContainer(
