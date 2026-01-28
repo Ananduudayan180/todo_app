@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_date_picker_fork/flutter_cupertino_date_picker_fork.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/extensions/space_exs.dart';
+import 'package:todo_app/main.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/utils/app_str.dart';
+import 'package:todo_app/utils/constants.dart';
 import 'package:todo_app/views/home/components/date_time_selection.dart';
 import 'package:todo_app/views/home/components/rep_textfield.dart';
 import 'package:todo_app/views/tasks/task_view_app_bar.dart';
@@ -80,7 +82,33 @@ class _TaskViewState extends State<TaskView> {
     }
   }
 
-  dynamic getOrCreateTask() {}
+  //create task otherwise update task
+  void addOrUpdateTask() {
+    if (widget.titleTaskController?.text == null &&
+        widget.descriptionTaskController?.text == null) {
+      //Update Task
+      try {
+        widget.titleTaskController!.text = title!;
+        widget.descriptionTaskController!.text = subTitle!;
+        widget.task?.save();
+      } catch (e) {
+        updateTaskWarning(context);
+      }
+    } else {
+      //Add Task
+      if (title != null && subTitle != null) {
+        final Task task = Task.create(
+          title: title,
+          subtitle: subTitle,
+          createAtDate: date,
+          createAtTime: time,
+        );
+        BaseWidget.of(context).dataStore.addTask(task: task);
+      } else {
+        emptyTaskWarning(context);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +173,7 @@ class _TaskViewState extends State<TaskView> {
           //Add or update task button
           MaterialButton(
             onPressed: () {
-              //add or update task
+              addOrUpdateTask();
             },
             minWidth: 150,
             height: 55,
