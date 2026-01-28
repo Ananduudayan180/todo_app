@@ -12,8 +12,9 @@ Future<void> main() async {
 }
 
 class BaseWidget extends InheritedWidget {
-  BaseWidget({Key? key, required this.child}) : super(key: key, child: child);
+  BaseWidget({super.key, required this.child}) : super(child: child);
   final HiveDataStore dataStore = HiveDataStore();
+  // ignore: annotate_overrides, overridden_fields
   final Widget child;
 
   static BaseWidget of(BuildContext context) {
