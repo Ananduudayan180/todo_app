@@ -157,7 +157,6 @@ class _HomeViewState extends State<HomeView> {
                           onDismissed: (direction) =>
                               base.dataStore.deleteTask(task: task),
                           background: Container(
-                            color: Colors.amber,
                             alignment: Alignment.center,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
