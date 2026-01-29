@@ -63,8 +63,8 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icons"
   ios: false
-  image_path: "assets/icon.png"
-  adaptive_icon_foreground: "assets/icon.png"
+  image_path: "assets/appicon.png"
+  adaptive_icon_foreground: "assets/appicon.png"
   adaptive_icon_background: "#ffffff"
 
 # For information on the generic Dart part of this file, see the
