@@ -10,7 +10,7 @@ Data is stored locally using Hive database.
 
 | Home | Add Task | Edit Task | Delete All Tasks | 
 |------|----------|-----------|-----------|
-|![Taskview](assets/screenshots/taskviewlist.PNG) | add_your_ss_here | add_your_ss_here | ![Edit](assets/screenshots/deletealltask.PNG)|
+|<img src="assets/screenshots/taskviewlist.PNG" width="350"> | add_your_ss_here | add_your_ss_here | ![Edit](assets/screenshots/deletealltask.PNG)|
 
 ---
 
