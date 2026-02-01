@@ -1,16 +1,48 @@
-# todo_app
+# 📝 ToDo Application
 
-A new Flutter project.
+A simple task management app built with Flutter.  
+Users can add, update, and delete tasks easily.  
+Data is stored locally using Hive database.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 📸 Screenshots
 
-A few resources to get you started if this is your first Flutter project:
+| Home | Add Task | Edit Task | Delete All Tasks | 
+|------|----------|-----------|-----------|
+| add_your_ss_here | add_your_ss_here | add_your_ss_here | ![Edit](assets/screenshots/deletealltask.PNG)|
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🚀 Features
+
+- ➕ Add new tasks  
+- ✏️ Update tasks  
+- 🗑 Delete tasks  
+- 📦 Data stored using Hive (local database)  
+- 🔄 Auto UI update using ValueListenableBuilder  
+- ⚡ Works fully offline  
+- ✅ CRUD operations implemented
+
+---
+
+## 🛠 Tech Used
+
+- Flutter  
+- Dart  
+- Hive Local Database  
+- ValueListenableBuilder (State Management)
+
+---
+
+## 📥 Download App
+
+This app is hosted on Play Store:  
+👉 https://play.google.com/store/apps/details?id=com.ticktick.task&pcampaignid=web_share
+
+---
+
+## 👨‍💻 Developer
+
+Author: Anandu Udayan  
+Email: anandhuudayan180@gmail.com
