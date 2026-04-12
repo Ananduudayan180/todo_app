@@ -1,33 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:todo_app/core/theme/app_theme.dart';
 import 'package:todo_app/data/hive_data_store.dart';
+import 'package:todo_app/features/theme/data/hive_theme_repository.dart';
+import 'package:todo_app/features/theme/presentation/theme_controller.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/views/home/home_view.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter<Task>(TaskAdapter());
   await Hive.openBox<Task>(HiveDataStore.taskBoxName);
-  runApp(BaseWidget(child: const MyApp()));
+  final settingsBox = await Hive.openBox<dynamic>(
+    HiveThemeRepository.settingsBoxName,
+  );
+
+  runApp(
+    AppScope(
+      dataStore: HiveDataStore(),
+      themeController: ThemeController(HiveThemeRepository(settingsBox)),
+      child: const MyApp(),
+    ),
+  );
 }
 
-class BaseWidget extends InheritedWidget {
-  BaseWidget({super.key, required this.child}) : super(child: child);
-  final HiveDataStore dataStore = HiveDataStore();
-  // ignore: annotate_overrides, overridden_fields
-  final Widget child;
+class AppScope extends InheritedWidget {
+  const AppScope({
+    super.key,
+    required this.dataStore,
+    required this.themeController,
+    required super.child,
+  });
 
-  static BaseWidget of(BuildContext context) {
-    final base = context.dependOnInheritedWidgetOfExactType<BaseWidget>();
-    if (base != null) {
-      return base;
-    } else {
-      throw StateError('Could not find ancestor widget of type Basewidget');
+  final HiveDataStore dataStore;
+  final ThemeController themeController;
+
+  static AppScope of(BuildContext context) {
+    final appScope = context.dependOnInheritedWidgetOfExactType<AppScope>();
+    if (appScope == null) {
+      throw StateError('Could not find ancestor widget of type AppScope');
     }
+
+    return appScope;
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+  bool updateShouldNotify(covariant AppScope oldWidget) {
     return false;
   }
 }
@@ -37,30 +56,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Hive Todo App',
-      theme: ThemeData(
-        textTheme: const TextTheme(
-          displayLarge: TextStyle(
-            color: Colors.black,
-            fontSize: 45,
-            fontWeight: FontWeight.bold,
-          ),
-          titleMedium: TextStyle(
-            color: Colors.grey,
-            fontSize: 16,
-            fontWeight: FontWeight.w300,
-          ),
-          displayMedium: TextStyle(color: Colors.white, fontSize: 21),
-          displaySmall: TextStyle(
-            color: Color.fromARGB(255, 234, 234, 234),
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-      ),
-      home: const HomeView(),
+    final themeController = AppScope.of(context).themeController;
+
+    return AnimatedBuilder(
+      animation: themeController,
+      builder: (context, _) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Hive Todo App',
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: themeController.themeMode,
+          home: const HomeView(),
+        );
+      },
     );
   }
 }

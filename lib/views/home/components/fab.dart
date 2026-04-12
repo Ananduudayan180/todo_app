@@ -24,6 +24,10 @@ class Fab extends StatelessWidget {
       child: Material(
         borderRadius: BorderRadius.circular(15),
         elevation: 10,
+        color: Colors.transparent,
+        shadowColor: Colors.black.withValues(
+          alpha: Theme.of(context).brightness == Brightness.dark ? 0.35 : 0.2,
+        ),
         child: Container(
           width: 70,
           height: 70,

@@ -1,30 +1,30 @@
-// // This is a basic Flutter widget test.
-// //
-// // To perform an interaction with a widget in your test, use the WidgetTester
-// // utility in the flutter_test package. For example, you can send tap and scroll
-// // gestures. You can also use WidgetTester to find child widgets in the widget
-// // tree, read text, and verify that the values of widget properties are correct.
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:todo_app/features/theme/domain/theme_repository.dart';
+import 'package:todo_app/features/theme/presentation/theme_controller.dart';
 
-// import 'package:flutter/material.dart';
-// import 'package:flutter_test/flutter_test.dart';
+void main() {
+  test('ThemeController toggles between light and dark mode', () async {
+    final controller = ThemeController(FakeThemeRepository());
 
-// import 'package:todo_app/main.dart';
+    expect(controller.themeMode, ThemeMode.light);
 
-// void main() {
-//   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-//     // Build our app and trigger a frame.
-//     await tester.pumpWidget(const MyApp());
+    await controller.toggleTheme(true);
+    expect(controller.themeMode, ThemeMode.dark);
 
-//     // Verify that our counter starts at 0.
-//     expect(find.text('0'), findsOneWidget);
-//     expect(find.text('1'), findsNothing);
+    await controller.toggleTheme(false);
+    expect(controller.themeMode, ThemeMode.light);
+  });
+}
 
-//     // Tap the '+' icon and trigger a frame.
-//     await tester.tap(find.byIcon(Icons.add));
-//     await tester.pump();
+class FakeThemeRepository implements ThemeRepository {
+  ThemeMode _themeMode = ThemeMode.light;
 
-//     // Verify that our counter has incremented.
-//     expect(find.text('0'), findsNothing);
-//     expect(find.text('1'), findsOneWidget);
-//   });
-// }
+  @override
+  ThemeMode loadThemeMode() => _themeMode;
+
+  @override
+  Future<void> saveThemeMode(ThemeMode themeMode) async {
+    _themeMode = themeMode;
+  }
+}

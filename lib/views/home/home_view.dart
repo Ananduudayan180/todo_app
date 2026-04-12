@@ -43,8 +43,10 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    final boxBase = BaseWidget.of(context).dataStore.box;
-    final base = BaseWidget.of(context);
+    final colorScheme = Theme.of(context).colorScheme;
+    final scaffoldColor = Theme.of(context).scaffoldBackgroundColor;
+    final boxBase = AppScope.of(context).dataStore.box;
+    final base = AppScope.of(context);
     return ValueListenableBuilder(
       valueListenable: base.dataStore.listenToTask(),
       builder: (context, task, _) {
@@ -54,15 +56,21 @@ class _HomeViewState extends State<HomeView> {
           return b.createAtDate.compareTo(a.createAtDate);
         });
         return Scaffold(
-          backgroundColor: Colors.white,
-
           floatingActionButton: const Fab(),
 
           body: SliderDrawer(
             //custom drawer
-            slider: CustomDrawer(),
+            slider: const CustomDrawer(),
             appBar: const SizedBox(),
-            child: _buildHomeBody(textTheme, base, boxBase, taskList),
+            backgroundColor: scaffoldColor,
+            child: _buildHomeBody(
+              textTheme,
+              colorScheme,
+              scaffoldColor,
+              base,
+              boxBase,
+              taskList,
+            ),
           ),
         );
       },
@@ -72,11 +80,14 @@ class _HomeViewState extends State<HomeView> {
   //body function
   Widget _buildHomeBody(
     TextTheme textTheme,
-    BaseWidget base,
+    ColorScheme colorScheme,
+    Color scaffoldColor,
+    AppScope base,
     Box<Task> baseBox,
     List<Task> tasks,
   ) {
-    return SizedBox(
+    return Container(
+      color: scaffoldColor,
       width: double.infinity,
       height: double.infinity,
       child: Column(
@@ -94,7 +105,11 @@ class _HomeViewState extends State<HomeView> {
                           ? noTaskWarning(context)
                           : deleteAllTasks(context);
                     },
-                    icon: const Icon(CupertinoIcons.delete, size: 28),
+                    icon: Icon(
+                      CupertinoIcons.delete,
+                      size: 28,
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                 ),
                 5.w,
@@ -114,7 +129,7 @@ class _HomeViewState extends State<HomeView> {
                   height: 30,
                   child: CircularProgressIndicator(
                     value: checkDoneTask(tasks) / valueOfIndicator(tasks),
-                    backgroundColor: Colors.grey,
+                    backgroundColor: colorScheme.outlineVariant,
                     valueColor: const AlwaysStoppedAnimation(
                       AppColors.primaryColor,
                     ),
@@ -137,9 +152,13 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           //Divider
-          const Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Divider(thickness: 2, indent: 100),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Divider(
+              thickness: 2,
+              indent: 100,
+              color: colorScheme.outlineVariant,
+            ),
           ),
           //Tasks
           Expanded(
@@ -157,15 +176,19 @@ class _HomeViewState extends State<HomeView> {
                           onDismissed: (direction) =>
                               base.dataStore.deleteTask(task: task),
                           background: Container(
+                            color: scaffoldColor,
                             alignment: Alignment.center,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.delete_outline, color: Colors.grey),
+                                Icon(
+                                  Icons.delete_outline,
+                                  color: colorScheme.outline,
+                                ),
                                 10.w,
-                                const Text(
+                                Text(
                                   AppStr.deleteTask,
-                                  style: TextStyle(color: Colors.grey),
+                                  style: TextStyle(color: colorScheme.outline),
                                 ),
                               ],
                             ),
@@ -186,7 +209,10 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         FadeInUp(
                           from: 30,
-                          child: const Text(AppStr.doneAllTask),
+                          child: Text(
+                            AppStr.doneAllTask,
+                            style: textTheme.bodyLarge,
+                          ),
                         ),
                       ],
                     ),

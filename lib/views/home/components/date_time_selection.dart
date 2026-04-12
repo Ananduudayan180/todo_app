@@ -15,6 +15,7 @@ class DateTimeSelectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
     //Time picker container
     return GestureDetector(
       onTap: onTap,
@@ -23,8 +24,8 @@ class DateTimeSelectionWidget extends StatelessWidget {
         width: double.infinity,
         height: 55,
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.grey.shade300),
+          color: colorScheme.surface,
+          border: Border.all(color: colorScheme.outlineVariant),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
@@ -41,7 +42,7 @@ class DateTimeSelectionWidget extends StatelessWidget {
               width: 80,
               height: 35,
               decoration: BoxDecoration(
-                color: Colors.grey.shade100,
+                color: colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(

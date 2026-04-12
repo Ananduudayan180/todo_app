@@ -104,7 +104,7 @@ class _TaskViewState extends State<TaskView> {
           createAtDate: date,
           createAtTime: time,
         );
-        BaseWidget.of(context).dataStore.addTask(task: task);
+        AppScope.of(context).dataStore.addTask(task: task);
         Navigator.of(context).pop();
       } else {
         emptyTaskWarning(context);
@@ -121,7 +121,7 @@ class _TaskViewState extends State<TaskView> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         //AppBar
         appBar: const TaskViewAppBar(),
@@ -150,6 +150,8 @@ class _TaskViewState extends State<TaskView> {
 
   // Bottom Delete / Add buttons widget
   Widget _buildBottomSideButtons() {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 20, top: 20),
       child: Row(
@@ -171,9 +173,10 @@ class _TaskViewState extends State<TaskView> {
                   },
                   minWidth: 150,
                   height: 55,
-                  color: Colors.white,
+                  color: colorScheme.surface,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
+                    side: BorderSide(color: colorScheme.outlineVariant),
                   ),
                   child: Row(
                     children: [
@@ -251,6 +254,10 @@ class _TaskViewState extends State<TaskView> {
             onTap: () {
               showModalBottomSheet(
                 context: context,
+                backgroundColor: Theme.of(
+                  context,
+                ).bottomSheetTheme.backgroundColor,
+                barrierColor: Colors.black54,
                 builder: (ctx) {
                   return SizedBox(
                     height: 254,
@@ -283,6 +290,20 @@ class _TaskViewState extends State<TaskView> {
                 initialDateTime: getInitialDateTime(date, false),
                 maxDateTime: DateTime(2030, 4, 5),
                 minDateTime: DateTime.now(),
+                pickerTheme: DateTimePickerTheme(
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  itemTextStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 20,
+                  ),
+                  cancelTextStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                  confirmTextStyle: const TextStyle(
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 onConfirm: (confirmDate, selectedIndex) {
                   setState(() {
                     if (widget.task?.createAtDate == null) {
@@ -304,13 +325,18 @@ class _TaskViewState extends State<TaskView> {
 
   //Top side texts widget
   SizedBox _buildTopSideTexts(TextTheme textTheme) {
+    final dividerColor = Theme.of(context).colorScheme.outlineVariant;
+
     return SizedBox(
       width: double.infinity,
       height: 50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const SizedBox(width: 75, child: Divider(thickness: 1)),
+          SizedBox(
+            width: 75,
+            child: Divider(thickness: 1, color: dividerColor),
+          ),
           RichText(
             text: TextSpan(
               text: isTaskAlreadyExist()
@@ -325,7 +351,10 @@ class _TaskViewState extends State<TaskView> {
               ],
             ),
           ),
-          const SizedBox(width: 75, child: Divider(thickness: 1)),
+          SizedBox(
+            width: 75,
+            child: Divider(thickness: 1, color: dividerColor),
+          ),
         ],
       ),
     );

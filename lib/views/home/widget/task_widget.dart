@@ -35,6 +35,9 @@ class _TaskWidgetState extends State<TaskWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: () {
         //navigate to task details
@@ -57,11 +60,11 @@ class _TaskWidgetState extends State<TaskWidget> {
         decoration: BoxDecoration(
           color: widget.task.isCompleted
               ? AppColors.primaryColor.withValues(alpha: 0.1)
-              : Colors.white,
+              : colorScheme.surface,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: .1),
+              color: Colors.black.withValues(alpha: isDarkMode ? 0.2 : 0.1),
               offset: const Offset(0, 4),
               blurRadius: 8,
             ),
@@ -80,9 +83,9 @@ class _TaskWidgetState extends State<TaskWidget> {
               decoration: BoxDecoration(
                 color: widget.task.isCompleted
                     ? AppColors.primaryColor
-                    : Colors.white,
+                    : colorScheme.surface,
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.grey, width: 1),
+                border: Border.all(color: colorScheme.outlineVariant, width: 1),
               ),
               child: const Icon(Icons.check, color: Colors.white),
             ),
@@ -93,7 +96,7 @@ class _TaskWidgetState extends State<TaskWidget> {
             style: TextStyle(
               color: widget.task.isCompleted
                   ? AppColors.primaryColor
-                  : Colors.black,
+                  : colorScheme.onSurface,
               fontWeight: FontWeight.w500,
               decoration: widget.task.isCompleted
                   ? TextDecoration.lineThrough
@@ -109,7 +112,7 @@ class _TaskWidgetState extends State<TaskWidget> {
                 style: TextStyle(
                   color: widget.task.isCompleted
                       ? AppColors.primaryColor
-                      : Colors.black,
+                      : colorScheme.onSurface,
                   fontWeight: FontWeight.w300,
                   decoration: widget.task.isCompleted
                       ? TextDecoration.lineThrough
@@ -132,7 +135,7 @@ class _TaskWidgetState extends State<TaskWidget> {
                         style: TextStyle(
                           color: widget.task.isCompleted
                               ? Colors.white
-                              : Colors.grey,
+                              : colorScheme.outline,
                         ),
                       ),
                       //date
@@ -141,7 +144,7 @@ class _TaskWidgetState extends State<TaskWidget> {
                         style: TextStyle(
                           color: widget.task.isCompleted
                               ? Colors.white
-                              : Colors.grey,
+                              : colorScheme.outline,
                         ),
                       ),
                     ],

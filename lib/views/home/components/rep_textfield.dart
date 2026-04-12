@@ -20,25 +20,18 @@ class RepTextField extends StatelessWidget {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      //TextField
       child: ListTile(
         title: TextFormField(
           controller: controller,
           maxLines: !isForDescription ? 5 : null,
-          style: const TextStyle(color: Colors.black),
+          style: Theme.of(context).textTheme.bodyLarge,
           decoration: InputDecoration(
             border: isForDescription ? InputBorder.none : null,
             counter: Container(),
             hintText: isForDescription ? AppStr.addNote : null,
             prefixIcon: isForDescription
-                ? const Icon(Icons.bookmark_border, color: Colors.grey)
+                ? const Icon(Icons.bookmark_border)
                 : null,
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade300),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade300),
-            ),
           ),
           onFieldSubmitted: onFieldSubmitted,
           onChanged: onChanged,

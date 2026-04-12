@@ -5,6 +5,8 @@ class TaskViewAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SizedBox(
       width: double.infinity,
       height: 150,
@@ -16,7 +18,10 @@ class TaskViewAppBar extends StatelessWidget implements PreferredSizeWidget {
               onTap: () {
                 Navigator.of(context).pop();
               },
-              child: const Icon(Icons.arrow_back_ios_new_rounded),
+              child: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: colorScheme.onSurface,
+              ),
             ),
           ),
         ],
